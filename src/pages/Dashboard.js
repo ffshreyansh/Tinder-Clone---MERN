@@ -1,3 +1,5 @@
+import TinderCard from 'react-tinder-card'
+
 
 const Dashboard = ()=> {
   return (
