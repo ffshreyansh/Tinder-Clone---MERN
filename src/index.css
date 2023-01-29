@@ -200,10 +200,6 @@ box-shadow: 10px 10px 22px -18px rgba(0,0,0,0.59);
 {
   display: none;
 }
-/* .onboarding .multiple-input-container2[type="checkbox"]
-{
-  width: 5%;
-} */
 
 .onboarding form input[type="radio"]:checked + label{
   border: 2px solid #fe3072;
@@ -229,4 +225,138 @@ box-shadow: 10px 10px 22px -18px rgba(0,0,0,0.59);
 }
 .onboarding form .photo-container{
   width: 100%;
+}
+
+
+/* DashBoard */
+
+.dashboard{
+  display: flex;
+  justify-content: space-between;
+}
+
+.dashboard .swipe-container{
+  display: flex;
+  width: 70%;
+  flex-direction: column;
+  /* background-color: red; */
+  justify-content: center;
+  height: 100vh;
+  align-items: center;
+  
+}
+
+.dashboard .card-overlay{
+  background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(205,71,4,0) 100%);
+
+}
+/* -----------------------------Tinder Card--------- */
+
+.swipe {
+  position: absolute;
+}
+
+.dashboard .card-container {
+ width: 450px;
+ height: 550px;
+ border-radius: 20px;
+ 
+}
+.dashboard .card {
+  background-color: #fff;
+  width: 450px;
+  height: 550px;
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center;
+}
+
+.cardContent {
+  width: 100%;
+  height: 100%;
+}
+
+.swipe:last-of-type {
+
+}
+
+.card h3 {
+  position: absolute;
+  bottom: 0;
+  margin: 10px;
+  color: #fff;
+}
+
+
+/* --------------ChatContainer */
+
+.chat-container{
+  background-color: rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+  rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  width: 30%;
+  overflow: hidden;
+  text-align: left;
+  z-index: 1;
+}
+.chat-container .chat-container-header{
+  height: 100px;
+  background: linear-gradient(45deg, #fe3072, #ff4940);
+  color: white ;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+
+.chat-container .btns{
+  padding: 12px 30px;
+  width: 50%;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid #fe3072;
+  background-color: white;
+  
+}
+
+.chat-container .btns:disabled{
+ border-bottom: solid 2px rgba(187, 187, 187, 187);
+}
+
+.chat-container .profile{
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  
+}
+.img-container{
+  border-radius: 50px;
+  height:40px;
+  width: 40px;
+  overflow: hidden;
+  margin: 10px;
+  background-color: white;
+}
+
+.chat-container-header .logout-icon{
+  margin: 20px;
+  font-size: 25px;
+}
+
+/* Chat Display */
+
+.chat-display{
+  overflow-y: auto;
+  height: 60vh;
+  padding: 20px;
+}
+.chat-input{
+  display: flex;
+  padding: 20px;
+  justify-content: space-between;
+  
+}
+.chat-input textarea{
+  width: 100%;
+  border-radius: 12px;
 }
