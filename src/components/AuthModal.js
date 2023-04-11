@@ -32,7 +32,7 @@ const AuthModal = ({setShowModal, isSignUp}) => {
 
             setCookie('Email', response.data.email)
             setCookie('UserId', response.data.userId)
-            setCookie('AuthToke', response.data.token)
+            setCookie('AuthToken', response.data.token)
 
 
 
@@ -43,7 +43,7 @@ const AuthModal = ({setShowModal, isSignUp}) => {
             if(success && isSignUp) navigate ('/onboarding')
             if(success && !isSignUp) navigate ('/dashboard')
 
-
+            window.location.reload()
         } catch (error) {
             console.log(error )
         }
