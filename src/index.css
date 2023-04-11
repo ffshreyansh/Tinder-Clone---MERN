@@ -229,6 +229,11 @@ box-shadow: 10px 10px 22px -18px rgba(0,0,0,0.59);
 
 
 /* DashBoard */
+.img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
 .dashboard{
   display: flex;

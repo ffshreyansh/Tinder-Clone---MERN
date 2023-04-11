@@ -1,33 +1,49 @@
 import TinderCard from 'react-tinder-card'
-import { useState } from 'react'
+import {useEffect, useState} from 'react'
 import ChatContainer from '../components/ChatContainer'
+import {useCookies} from 'react-cookie'
+import axios from 'axios'
 
 const Dashboard = () => {
-
-
-  const characters = [
-    {
-      name: 'Richard Hendricks',
-      url: 'https://images.unsplash.com/photo-1674078120310-b1b1a774c5a9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80'
-    },
-    {
-      name: 'Erlich Bachman',
-      url: 'https://images.unsplash.com/photo-1674037204170-ca7f46a68b0f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80'
-    },
-    {
-      name: 'Monica Hall',
-      url: 'https://images.unsplash.com/photo-1674070259530-c562efab6e7f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80'
-    },
-    {
-      name: 'Jared Dunn',
-      url: 'https://images.unsplash.com/photo-1673897607339-de381d2e1e1e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80'
-    },
-    {
-      name: 'Dinesh Chugtai',
-      url: 'https://images.unsplash.com/photo-1673798856878-77e9494f99e2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDQxfHRvd0paRnNrcEdnfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=500&q=60'
-    }
-  ]
+  const [user, setUser] = useState(null)
+  const [genderedUsers, setGenderedUsers] = useState(null)
   const [lastDirection, setLastDirection] = useState()
+  const [cookies, setCookie, removeCookie] = useCookies(['user'])
+
+
+  const userId = cookies.UserId
+
+  const getUser = async () => {
+    try {
+        const response = await axios.get('http://localhost:5000/user', {
+            params: {userId}
+        })
+        setUser(response.data)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
+const getGenderedUsers = async () => {
+  try {
+      const response = await axios.get('http://localhost:5000/gendered-users', {
+          params: {gender: user?.gender_interest}
+      })
+      setGenderedUsers(response.data)
+  } catch (error) {
+      console.log(error)
+  }
+}
+
+
+  useEffect(()=>{
+    getUser()
+    getGenderedUsers()
+  },[user, genderedUsers])
+
+ console.log(genderedUsers)
+  
 
   const swiped = (direction, nameToDelete, index) => {
     setLastDirection(direction)
@@ -40,29 +56,31 @@ const Dashboard = () => {
 
 
 
+
+
   return (
+    <>
+    {user &&
     <div className="dashboard">
-      <ChatContainer/>
+      <ChatContainer user={user}/>
       <div className="swipe-container">
-        {/* <div className='card-overlay'> */}
+      
         <div className="card-container">
 
-          {characters.map((character) =>
-            <TinderCard className='swipe' key={character.name} onSwipe={(dir) => swiped(dir, character.name)} onCardLeftScreen={() => outOfFrame(character.name)}>
-              <div style={{ backgroundImage: 'url(' + character.url + ')' }} className='card'>
-                <h3>{character.name}</h3>
+          {genderedUsers.map((genderedUser) =>
+            <TinderCard className='swipe' key={genderedUser.name} onSwipe={(dir) => swiped(dir, genderedUser.name)} onCardLeftScreen={() => outOfFrame(genderedUser.name)}>
+              <div style={{ backgroundImage: 'url(' + genderedUser.url + ')' }} className='card'>
+                <h3>{genderedUser.first_name}</h3>
               </div>
               
             </TinderCard>
           )}
-          {/* </div> */}
+         
 
         </div>
       </div>
-
-
-
-    </div>
+    </div>}
+    </>
   )
 }
 
